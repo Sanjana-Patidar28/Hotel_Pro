@@ -15,12 +15,15 @@ const PORT = process.env.PORT || 5000;
 if (!process.env.JWT_SECRET || process.env.JWT_SECRET === 'replace_this_with_a_long_random_secret') {
   console.warn('WARNING: Set a strong, private JWT_SECRET in backend/.env before using this beyond local testing.');
 }
+
 app.use(cors({
   origin: [
     'http://localhost:5173',
-    'http://localhost:5174'
+    'http://localhost:5174',
+    'https://hotel-g3v223mr4-sanju200519.vercel.app'
   ]
 }));
+
 app.use(express.json({ limit: '1mb' }));
 fs.mkdirSync(path.resolve('uploads'), { recursive: true });
 app.use('/uploads', express.static(path.resolve('uploads')));

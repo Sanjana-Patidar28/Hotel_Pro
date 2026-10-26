@@ -41,12 +41,40 @@ try {
 
   const hotels = await Hotel.find().sort({ _id: 1 });
 
-  for (let i = 0; i < hotels.length; i++) {
-    hotels[i].imageUrl =
-      `https://images.unsplash.com/${photos[i % photos.length]}?auto=format&fit=crop&w=900&q=80`;
+  
+const usedPhotosByCity = new Map();
+const uniquePhotos = [...new Set(photos)];
 
-    await hotels[i].save();
+for (const hotel of hotels) {
+  const city = hotel.city.trim().toLowerCase();
+
+  if (!usedPhotosByCity.has(city)) {
+    usedPhotosByCity.set(city, new Set());
   }
+
+  const usedPhotos = usedPhotosByCity.get(city);
+  const availablePhotos = uniquePhotos.filter(
+    photo => !usedPhotos.has(photo)
+  );
+
+  if (availablePhotos.length === 0) {
+    throw new Error(
+      `Not enough unique photos for ${hotel.city}. Add more photo IDs first.`
+    );
+  }
+
+  const photo = availablePhotos[
+    Math.floor(Math.random() * availablePhotos.length)
+  ];
+
+  usedPhotos.add(photo);
+
+  hotel.imageUrl =
+    `https://images.unsplash.com/${photo}?auto=format&fit=crop&w=900&q=80`;
+
+  await hotel.save();
+}
+
 
   console.log(`Updated photos for ${hotels.length} hotels.`);
 } catch (error) {

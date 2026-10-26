@@ -817,7 +817,7 @@ try {
                     <button
                       className="hotel-photo"
                       onClick={() => openHotel(hotel)}
-                      style={{ backgroundImage: `url("${hotel.imageUrl}")` }}
+                     style={{ backgroundImage: `url("${hotel.image || hotel.imageUrl}")` }}
                       aria-label={`View ${hotel.name}`}
                     >
                       <span className="photo-tag">{hotel.city}</span>

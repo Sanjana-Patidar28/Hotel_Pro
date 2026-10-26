@@ -3,9 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import './styles.css';
 
-const API = import.meta.env.PROD
-  ? 'https://hotel-pro-backend.onrender.com/api'
-  : 'http://localhost:5000/api';
+const API =
+  import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 const cities = [
   'Delhi', 'Mumbai', 'Jaipur', 'Goa', 'Agra',
   'Udaipur', 'Bengaluru', 'Hyderabad', 'Kochi', 'Varanasi'

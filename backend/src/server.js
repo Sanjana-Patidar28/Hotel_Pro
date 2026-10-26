@@ -16,13 +16,16 @@ if (!process.env.JWT_SECRET || process.env.JWT_SECRET === 'replace_this_with_a_l
   console.warn('WARNING: Set a strong, private JWT_SECRET in backend/.env before using this beyond local testing.');
 }
 
+
 app.use(cors({
   origin: [
     'http://localhost:5173',
     'http://localhost:5174',
-    'https://hotel-g3v223mr4-sanju200519.vercel.app'
+    'https://hotel-g3v223mr4-sanju200519.vercel.app',
+    'https://hotel-pro-nine.vercel.app'
   ]
 }));
+
 
 app.use(express.json({ limit: '1mb' }));
 fs.mkdirSync(path.resolve('uploads'), { recursive: true });

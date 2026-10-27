@@ -40,7 +40,9 @@ router.post('/', async (req, res, next) => {
 
 router.get('/mine', async (req, res, next) => {
   try {
-    const bookings = await Booking.find({ user: req.user.id }).populate('hotel', 'name city address').sort({ createdAt: -1 });
+    const bookings = await Booking.find({ user: req.user.id })
+  .populate('hotel', 'name city address imageUrl')
+  .sort({ createdAt: -1 });
     res.json(bookings);
   } catch (err) { next(err); }
 });
